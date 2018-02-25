@@ -142,23 +142,11 @@ mydata &lt;- select( trainingSet[filtered==F], roll_belt:classe)</code></pre>
 </div>
 <div id="prediction-model" class="section level2">
 <h2>Prediction Model</h2>
-<p>From the description of the dataset on the website, it is clear that we require some form of decision tree to classify the datasets. We adopt the more versatile and robust random forests (as compared to just decision trees) to predict the above sample.</p>
-<p>Due to how computationally expensive random forests are and how poor my computer is, we will do k-fold cross validation with k=3. This enables error estimation.</p>
+<p>From the description of the dataset on the website, it is clear that we require some form of decision tree to classify the datasets. We adopt the more versatile and robust random forests (as compared to just decision trees) to predict the above sample. Random forests create many decision trees and votes to pick the best tree out of all of them.</p>
+<p>Due to how computationally expensive random forests are and how poor my computer is, we will do k-fold cross validation with k=3. This enables out of sample error estimation.</p>
 <pre class="r"><code>set.seed(123456)
 train_control &lt;- trainControl(method=&quot;cv&quot;, number=3)
 modelFit &lt;- train(classe~., data=mydata, method=&quot;rf&quot;, trControl=train_control)</code></pre>
-<pre><code>## Loading required package: randomForest</code></pre>
-<pre><code>## Warning: package 'randomForest' was built under R version 3.3.3</code></pre>
-<pre><code>## randomForest 4.6-12</code></pre>
-<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
-<pre><code>## 
-## Attaching package: 'randomForest'</code></pre>
-<pre><code>## The following object is masked from 'package:dplyr':
-## 
-##     combine</code></pre>
-<pre><code>## The following object is masked from 'package:ggplot2':
-## 
-##     margin</code></pre>
 <pre class="r"><code>modelFit</code></pre>
 <pre><code>## Random Forest 
 ## 
@@ -178,7 +166,7 @@ modelFit &lt;- train(classe~., data=mydata, method=&quot;rf&quot;, trControl=tra
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was mtry = 2.</code></pre>
-<p>With an accuracy of 99.327, not bad at all!</p>
+<p>With an estimated out of sample accuracy of 99.327, not bad at all!</p>
 </div>
 <div id="predicting-the-testing-set" class="section level2">
 <h2>Predicting the testing set</h2>

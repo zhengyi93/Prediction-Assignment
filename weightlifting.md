@@ -29,9 +29,9 @@ mydata <- select( trainingSet[filtered==F], roll_belt:classe)
 ```
 
 ## Prediction Model
-From the description of the dataset on the website, it is clear that we require some form of decision tree to classify the datasets. We adopt the more versatile and robust random forests (as compared to just decision trees) to predict the above sample.
+From the description of the dataset on the website, it is clear that we require some form of decision tree to classify the datasets. We adopt the more versatile and robust random forests (as compared to just decision trees) to predict the above sample. Random forests create many decision trees and votes to pick the best tree out of all of them. 
 
-Due to how computationally expensive random forests are and how poor my computer is, we will do k-fold cross validation with k=3. This enables error estimation.
+Due to how computationally expensive random forests are and how poor my computer is, we will do k-fold cross validation with k=3. This enables out of sample error estimation.
 
 
 ```r
@@ -40,38 +40,6 @@ train_control <- trainControl(method="cv", number=3)
 modelFit <- train(classe~., data=mydata, method="rf", trControl=train_control)
 ```
 
-```
-## Loading required package: randomForest
-```
-
-```
-## Warning: package 'randomForest' was built under R version 3.3.3
-```
-
-```
-## randomForest 4.6-12
-```
-
-```
-## Type rfNews() to see new features/changes/bug fixes.
-```
-
-```
-## 
-## Attaching package: 'randomForest'
-```
-
-```
-## The following object is masked from 'package:dplyr':
-## 
-##     combine
-```
-
-```
-## The following object is masked from 'package:ggplot2':
-## 
-##     margin
-```
 
 ```r
 modelFit
@@ -98,7 +66,7 @@ modelFit
 ## The final value used for the model was mtry = 2.
 ```
 
-With an accuracy of 99.327, not bad at all!
+With an estimated out of sample accuracy of 99.327, not bad at all!
 
 ## Predicting the testing set
 
